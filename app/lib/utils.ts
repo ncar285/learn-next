@@ -68,6 +68,7 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
   ];
 };
 
+// more about the game: https://en.wikipedia.org/wiki/Opera_Game
 export const BARBER_OF_SEVILLE_GAME = {
   "moves": [
     {"moveNumber": 1, "white": "e4", "black": "e5"},
@@ -89,4 +90,5 @@ export const BARBER_OF_SEVILLE_GAME = {
     {"moveNumber": 17, "white": "Rd8#", "black": ""}
   ]
 }
+export const OPERA_GAME_FEN = '1n1Rkb1r/p4pppp/4q3/4p1B1/4P3/8/PPP2PPP/2K5 b - - 0 1'
 

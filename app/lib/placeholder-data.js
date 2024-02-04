@@ -150,61 +150,61 @@ const games = [
     id: 'game-001',
     white_player_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a', // User as white
     black_player_id: '3958dc9e-742f-4377-85e9-fec4b6a6442a', // Lee Robinson as black
-    status: 'completed',
-    result: 'white-win',
     move_history: JSON.stringify(BARBER_OF_SEVILLE_GAME),
     created_at: new Date('2023-01-02T12:00:00Z'),
     updated_at: new Date('2023-01-02T12:30:00Z'),
+    status: 'white-win',
+    fen: OPERA_GAME_FEN, // Forsyth-Edwards Notation (FEN) 
   },
   {
     id: 'game-002',
     white_player_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     black_player_id: '3958dc9e-737f-4377-85e9-fec4b6a6442a', // Hector Simpson as black
-    status: 'completed',
-    result: 'white-win',
     move_history: JSON.stringify(BARBER_OF_SEVILLE_GAME),
     created_at: new Date('2023-01-03T12:00:00Z'),
     updated_at: new Date('2023-01-03T12:30:00Z'),
+    status: 'white-win',
+    fen: OPERA_GAME_FEN,
   },
   {
     id: 'game-003',
     white_player_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     black_player_id: '3958dc9e-787f-4377-85e9-fec4b6a6442a', // Steph Dietz as black
-    status: 'completed',
-    result: 'white-win',
     move_history: JSON.stringify(BARBER_OF_SEVILLE_GAME),
     created_at: new Date('2023-01-04T12:00:00Z'),
     updated_at: new Date('2023-01-04T12:30:00Z'),
+    status: 'white-win',
+    fen: OPERA_GAME_FEN,
   },
   {
     id: 'game-004',
     white_player_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     black_player_id: '76d65c26-f784-44a2-ac19-586678f7c2f2', // Michael Novotny as black
-    status: 'completed',
-    result: 'white-win',
     move_history: JSON.stringify(BARBER_OF_SEVILLE_GAME),
     created_at: new Date('2023-01-05T12:00:00Z'),
     updated_at: new Date('2023-01-05T12:30:00Z'),
+    status: 'white-win',
+    fen: OPERA_GAME_FEN,
   },
   {
     id: 'game-005',
     white_player_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     black_player_id: 'd6e15727-9fe1-4961-8c5b-ea44a9bd81aa', // Evil Rabbit as black
-    status: 'completed',
-    result: 'white-win',
     move_history: JSON.stringify(BARBER_OF_SEVILLE_GAME),
     created_at: new Date('2023-01-06T12:00:00Z'),
     updated_at: new Date('2023-01-06T12:30:00Z'),
+    status: 'white-win',
+    fen: OPERA_GAME_FEN,
   },
   {
     id: 'game-006',
     white_player_id: '3958dc9e-712f-4377-85e9-fec4b6a6442a',
     black_player_id: '126eed9c-c90c-4ef6-a4a8-fcf7408d3c66', // Emil Kowalski as black
-    status: 'completed',
-    result: 'white-win',
     move_history: JSON.stringify(BARBER_OF_SEVILLE_GAME),
     created_at: new Date('2023-01-07T12:00:00Z'),
     updated_at: new Date('2023-01-07T12:30:00Z'),
+    status: 'white-win',
+    fen: OPERA_GAME_FEN,
   },
 ]
 

@@ -4,6 +4,7 @@ const {
   customers,
   revenue,
   users,
+  games
 } = require('../app/lib/placeholder-data.js');
 const bcrypt = require('bcrypt');
 
@@ -45,6 +46,53 @@ async function seedUsers(client) {
     throw error;
   }
 }
+
+
+// ! SEED GAMES
+async function seedGames(client) {
+  try {
+    await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+    // Create the "games" table if it doesn't exist
+    const createTable = await client.sql`
+    CREATE TABLE IF NOT EXISTS games (
+    id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+    white_player_id UUID NOT NULL,
+    black_player_id UUID NOT NULL,
+    move_history TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
+    status VARCHAR(255) NOT NULL,
+    fen VARCHAR(255) NOT NULL
+  );
+`;
+
+    console.log(`Created "games" table`);
+
+    // Insert data into the "games" table
+    const insertedGames = await Promise.all(
+      games.map(
+        (game) => client.sql`
+        INSERT INTO games (white_player_id, black_player_id, move_history, created_at, updated_at, status, fen)
+        VALUES (${game.white_player_id}, ${game.black_player_id}, ${game.move_history}, 
+          ${game.created_at}, ${game.updated_at}, ${game.status}, ${game.fen})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+      ),
+    );
+
+    console.log(`Seeded ${insertedGames.length} games`);
+
+    return {
+      createTable,
+      games: insertedGames,
+    };
+  } catch (error) {
+    console.error('Error seeding games:', error);
+    throw error;
+  }
+}
+// ! SSEDED GAMES
 
 async function seedInvoices(client) {
   try {
@@ -164,6 +212,7 @@ async function main() {
   const client = await db.connect();
 
   await seedUsers(client);
+  await seedGames(client);
   await seedCustomers(client);
   await seedInvoices(client);
   await seedRevenue(client);
