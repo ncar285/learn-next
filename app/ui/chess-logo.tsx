@@ -9,7 +9,7 @@ export default function KnightLogo() {
     >
       {/* <GlobeAltIcon className="h-12 w-12 rotate-[15deg]" /> */}
       <Logo className="h-12 w-12 mr-2" />
-      <p className="text-[44px]">Chess by Nico</p>
+      <p className="text-[44px]">Chess</p>
     </div>
   );
 }

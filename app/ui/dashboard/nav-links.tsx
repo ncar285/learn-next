@@ -3,11 +3,13 @@
 import {
   UserGroupIcon,
   HomeIcon,
-  DocumentDuplicateIcon,
+  CalendarDaysIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+
+
 
 
 // Map of links to display in the side navigation.
@@ -15,11 +17,11 @@ import clsx from 'clsx';
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
   {
-    name: 'Invoices',
+    name: 'Game History',
     href: '/dashboard/invoices',
-    icon: DocumentDuplicateIcon,
+    icon: CalendarDaysIcon,
   },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'Friends', href: '/dashboard/customers', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
