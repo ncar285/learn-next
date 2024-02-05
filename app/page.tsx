@@ -8,7 +8,7 @@ import KnightLogo from './ui/chess-logo';
 export default function Page() {
   return (
     <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
+      <div className="flex h-20 shrink-0 items-end rounded-lg bg-grey-500 p-4 md:h-26">
         {/* </> */}
         {/* <img src={Logo} alt="Chess by Nico knight logo" /> */}
         {/* <AcmeLogo /> */}
@@ -23,9 +23,9 @@ export default function Page() {
         /> */}
 
         {/* CSS Module approach: */}
-        <div
+        {/* <div
           className={styles.shape}
-        />
+        /> */}
 
           <p 
             className={`${lusitana.className} antialiased text-xl text-gray-800 md:text-3xl md:leading-normal`}
@@ -34,7 +34,7 @@ export default function Page() {
           </p>
           <Link
             href="/login"
-            className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+            className="flex items-center gap-5 self-start rounded-lg bg-grey-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
           >
             <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
           </Link>

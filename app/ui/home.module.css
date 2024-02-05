@@ -46,7 +46,8 @@
         display: none; /* Hide on medium screens and larger */
     }
 }
-/* '1024px', */
+
+
 @media (min-width: 1024px) { 
     .desktopChessboard {
         height: calc(100% - 0.25rem);
