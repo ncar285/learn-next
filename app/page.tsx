@@ -2,46 +2,37 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import styles from '@/app/ui/home.module.css'
 import { lusitana } from '@/app/ui/fonts';
-import Image from 'next/image';
 import KnightLogo from './ui/chess-logo';
+import InactiveChessBoard from './ui/InactiveChessBoard';
+import '@/app/ui/global.css';
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-grey-500 p-4 md:h-26">
-        {/* </> */}
-        {/* <img src={Logo} alt="Chess by Nico knight logo" /> */}
-        {/* <AcmeLogo /> */}
+    <main className={`${styles.homepageContainer}`}>
+      <div className={`${styles.logoContainer}`}>
         <KnightLogo/>
       </div>
-      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
-        
-        {/* Tailwnd class names approach: */}
-        {/* <div
-          className="h-0 w-0 border-b-[30px] border-l-[20px] border-r-[20px] border-b-black border-l-transparent border-r-transparent"
-        /> */}
-
-        {/* CSS Module approach: */}
-        {/* <div
-          className={styles.shape}
-        /> */}
-
+      <div className={`${styles.homePageBody}`}>
+        <div className={`${styles.welcomeBlock}`}>
           <p 
-            className={`${lusitana.className} antialiased text-xl text-gray-800 md:text-3xl md:leading-normal`}
+            className={`${lusitana.className} ${styles.welcomeMessage}`}
           >
             <strong>Welcome to Chess by Nico.</strong> Play against your friends or challenge AI bots.
           </p>
           <Link
             href="/login"
-            className="flex items-center gap-5 self-start rounded-lg bg-grey-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
+            className="button-style"
           >
-            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
+            <span>Log in</span> <ArrowRightIcon className="button-arrow" />
           </Link>
         </div>
         <div className={`${styles.chessboardContainer}`}>
-          <div className={styles.desktopChessboard}>test - desktop</div>
-          <div className={styles.mobileChessboard}>test - mobile</div>
+          <div className={styles.desktopChessboard}>
+            <InactiveChessBoard/>
+          </div>
+          <div className={styles.mobileChessboard}>
+            <InactiveChessBoard/>
+          </div>
         </div>
       </div>
     </main>

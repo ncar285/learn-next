@@ -1,3 +1,5 @@
+import { StaticImageData } from 'next/image';
+
 // Piece images
 import b_bishop from '@/public/pieceImages/b_bishop.png'
 import w_bishop from '@/public/pieceImages/w_bishop.png'
@@ -12,22 +14,9 @@ import w_queen from '@/public/pieceImages/w_queen.png'
 import b_rook from '@/public/pieceImages/b_rook.png'
 import w_rook from '@/public/pieceImages/w_rook.png'
 
-export const PIECE_IMAGES = {
-    'b_bishop': b_bishop,
-    'w_bishop': w_bishop,
-    'b_king': b_king,
-    'w_king': w_king,
-    'b_knight': b_knight,
-    'w_knight': w_knight,
-    'w_pawn': w_pawn,
-    'b_pawn': b_pawn,
-    'b_queen': b_queen,
-    'w_queen': w_queen,
-    'b_rook': b_rook,
-    'w_rook': w_rook
-};
+export type PieceKey = 'r' | 'n' | 'b' | 'q' | 'k' | 'p' | 'R' | 'N' | 'B' | 'Q' | 'K' | 'P';
 
-export const FEN_PIECE_IMAGES = {
+export const PIECE_IMAGES: { [key in PieceKey]?: StaticImageData } = {
     'b': b_bishop,
     'B': w_bishop,
     'k': b_king,
@@ -42,7 +31,7 @@ export const FEN_PIECE_IMAGES = {
     'R': w_rook
 };
 
-export const PIECE_NAMES = {
+export const PIECE_NAMES: { [key in PieceKey]?: string } =  {
     'b': "black bishop",
     'B': "white bishop",
     'k': "black king",
