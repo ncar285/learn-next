@@ -5,3 +5,52 @@
     border-left: 20px solid transparent;
     border-right: 20px solid transparent;
 }
+
+
+.chessboardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem; /* Adjusted padding for all screens */
+}
+
+@media (min-width: 768px) { /* Tailwind's md breakpoint */
+    .chessboardContainer {
+        width: 60%; /* Adjust if you want a different width on desktop */
+        padding: 1rem; /* Reduced padding on desktop */
+    }
+}
+
+.desktopChessboard {
+    background-color: #0070F3; /* Tailwind's blue-500 */
+    width: calc(100% - 2rem); /* Adjust width to allow for margin/padding, 2rem is just an example */
+    margin: auto; /* Center the square in the parent container */
+    aspect-ratio: 1 / 1;
+    display: none; /* Start as hidden */
+}
+
+.mobileChessboard {
+    background-color: #38A169; /* Tailwind's green-500 */
+    width: calc(100% - 2rem); /* Adjust width to allow for margin/padding, 2rem is just an example */
+    margin: auto; /* Center the square in the parent container */
+    aspect-ratio: 1 / 1;
+    display: block; /* Start as visible on smaller screens */
+}
+
+@media (min-width: 768px) { /* Tailwind's md breakpoint */
+    .desktopChessboard {
+        display: block; /* Show on medium screens and larger */
+        background-color: #0070F3; 
+    }
+    .mobileChessboard {
+        display: none; /* Hide on medium screens and larger */
+    }
+}
+/* '1024px', */
+@media (min-width: 1024px) { 
+    .desktopChessboard {
+        height: calc(100% - 0.25rem);
+        width: auto;
+        aspect-ratio: 1 / 1;
+    }
+}
