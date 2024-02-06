@@ -62,7 +62,7 @@ async function seedGames(client) {
     move_history TEXT NOT NULL,
     created_at TIMESTAMP WITH TIME ZONE NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    status VARCHAR(255) NOT NULL CHECK (status IN ('white-win', 'black-win', 'draw', 'underway')),
     fen VARCHAR(255) NOT NULL
   );
 `;

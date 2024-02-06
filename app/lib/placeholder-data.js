@@ -1,6 +1,6 @@
 // This file contains placeholder data that you'll be replacing with real data in the Data Fetching chapter:
 
-const { BARBER_OF_SEVILLE_GAME } = require("./utils");
+const { BARBER_OF_SEVILLE_GAME } = require("./chessUtils");
 
 // https://nextjs.org/learn/dashboard-app/fetching-data
 const users = [

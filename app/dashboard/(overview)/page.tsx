@@ -4,6 +4,7 @@ import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { CardSkeleton, LatestInvoicesSkeleton, RevenueChartSkeleton } from '@/app/ui/skeletons';
 import CardWrapper from '@/app/ui/dashboard/cards';
+import CreateGame from '@/app/ui/dashboard/create-game';
  
 export default async function Page() {
   return (
@@ -18,7 +19,8 @@ export default async function Page() {
       </div>
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-4 lg:grid-cols-8">
         <Suspense fallback={ <RevenueChartSkeleton/> }>
-          <RevenueChart/>
+          {/* <RevenueChart/> */}
+          <CreateGame/>
         </Suspense>
         <Suspense fallback = { <LatestInvoicesSkeleton/>}>
           <LatestInvoices />

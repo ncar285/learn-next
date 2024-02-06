@@ -97,3 +97,55 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+
+export type TimeControlCategories = {
+  [category: string]: string[];
+};
+
+export const timeControls: TimeControlCategories = {
+  'Bullet': ['1|0', '1|1', '2|1'],
+  'Blitz': ['3|0', '3|2', '5|0'],
+  'Rapid': ['10|0', '15|10', '30|0'],
+  'No Limit': ['inf'],
+};
+
+export type ChessBot = {
+  id: string;
+  name: string;
+  description: string;
+  rating: number;
+};
+
+export const chessBots: ChessBot[] = [
+  {
+    id: 'bot-1',
+    name: 'AlphaPawn',
+    description: 'A beginner-friendly bot with a knack for opening mistakes.',
+    rating: 800,
+  },
+  {
+    id: 'bot-2',
+    name: 'KnightHawk',
+    description: 'Intermediate level bot that loves tactical skirmishes.',
+    rating: 1200,
+  },
+  {
+    id: 'bot-3',
+    name: 'BishopBane',
+    description: 'Advanced bot with a strategic depth, preferring long positional games.',
+    rating: 1600,
+  },
+  {
+    id: 'bot-4',
+    name: 'RookRoll',
+    description: 'Expert bot that dominates the open files and ranks with precision.',
+    rating: 2000,
+  },
+  {
+    id: 'bot-5',
+    name: 'QueenGambit',
+    description: 'Master level bot, challenging the best players with unpredictable moves.',
+    rating: 2400,
+  },
+];
