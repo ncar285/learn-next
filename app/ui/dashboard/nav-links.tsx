@@ -19,7 +19,7 @@ const links = [
   { name: 'Play', href: '/dashboard', icon: RocketLaunchIcon },
   {
     name: 'Game History',
-    href: '/dashboard/invoices',
+    href: '/dashboard/game-history',
     icon: CalendarDaysIcon,
   },
   { name: 'Friends', href: '/dashboard/customers', icon: UserGroupIcon },

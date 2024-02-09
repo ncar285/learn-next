@@ -10,9 +10,19 @@ import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from './button';
 import { useFormState, useFormStatus } from 'react-dom';
 import { authenticate } from '@/app/lib/actions';
+import { useSession } from "next-auth/react"
 
 export default function LoginForm() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
+
+  // const { data: session, status } = useSession()
+
+  // if (status === "authenticated") {
+  //   console.log("1111")
+  // }  else {
+  //   console.log("2222")
+  // }
 
   return (
     <form action={dispatch} className="space-y-3">

@@ -4,16 +4,17 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
-<<<<<<< HEAD
 import { GAME_START_FEN } from './chessUtils';
+
+import { getSession } from 'next-auth/react';
 
 
 // const userId = fetchUserId();
 const userId = '410544b2-4001-4271-9855-fec4b6a6442a';
-=======
+
 import { signIn } from '@/auth';
 import { AuthError } from 'next-auth';
->>>>>>> main
+
 
 
 const FormSchema = z.object({
@@ -149,4 +150,11 @@ export async function authenticate(
     }
     throw error;
   }
+}
+
+export async function getSessionUser() {
+  const session = await getSession()
+  const user = session?.user
+
+  return user
 }

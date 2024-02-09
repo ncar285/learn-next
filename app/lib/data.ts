@@ -12,6 +12,8 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
+import { getSession } from 'next-auth/react';
+
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.
   // This is equivalent to in fetch(..., {cache: 'no-store'}).
@@ -94,6 +96,108 @@ export async function fetchCardData() {
 }
 
 const ITEMS_PER_PAGE = 6;
+
+
+const currentUserId =  '410544b2-4001-4271-9855-fec4b6a6442a';
+
+
+export async function fetchAllGames(
+  userId: string,
+){
+
+  noStore();
+
+  try {
+    const games = await sql<InvoicesTable>`
+    SELECT 
+      g.id,
+
+      g.created_at,
+
+      g.updated_at AS finished_at,
+
+      CASE
+      WHEN g.status = 'white-win' AND g.white_player_id = ${userId} THEN 'win'
+      WHEN g.status = 'black-win' AND g.black_player_id = ${userId} THEN 'win'
+      WHEN g.status = 'white-win' AND g.black_player_id = ${userId} THEN 'loss'
+      WHEN g.status = 'black-win' AND g.white_player_id = ${userId} THEN 'loss'
+      WHEN g.status = 'draw' THEN 'draw'
+      END AS result,
+
+      g.fen,
+
+      CASE
+      WHEN g.white_player_id = ${userId} THEN black_player.name
+      WHEN g.black_player_id = ${userId} THEN white_player.name
+      END AS opponent_name,
+
+      CASE
+      WHEN g.white_player_id = ${userId} THEN black_player.id
+      WHEN g.black_player_id = ${userId} THEN white_player.id
+      END AS opponent_id,
+
+      EXTRACT(EPOCH FROM (g.updated_at - g.created_at)) / 60 AS duration
+    FROM
+      games g
+      JOIN users AS white_player ON g.white_player_id = white_player.id
+      JOIN users AS black_player ON g.black_player_id = black_player.id
+    `;
+
+    return games.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch all games.');
+  }
+  
+}
+
+
+export async function fetchFilteredGames(
+  query: string,
+  currentPage: number,
+){
+  noStore();
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const games = await sql<InvoicesTable>`
+    SELECT
+      g.id,
+      g.created_at,
+      CASE
+        WHEN g.status = 'white-win' AND g.white_player_id = ${currentUserId} THEN 'win'
+        WHEN g.status = 'black-win' AND g.black_player_id = ${currentUserId} THEN 'win'
+        WHEN g.status = 'white-win' AND g.black_player_id = ${currentUserId} THEN 'loss'
+        WHEN g.status = 'black-win' AND g.white_player_id = ${currentUserId} THEN 'loss'
+        WHEN g.status = 'draw' THEN 'draw'
+      END AS result,
+      g.fen,
+      CASE
+        WHEN g.white_player_id = ${currentUserId} THEN black_player.name
+        ELSE white_player.name
+      END AS opponent_name,
+      CASE
+        WHEN g.white_player_id = ${currentUserId} THEN black_player.id
+        ELSE white_player.id
+      END AS opponent_id,
+      EXTRACT(EPOCH FROM (g.updated_at - g.created_at)) / 60 AS duration
+    FROM
+      games g
+      JOIN users AS white_player ON g.white_player_id = white_player.id
+      JOIN users AS black_player ON g.black_player_id = black_player.id
+    WHERE
+      (g.white_player_id = ${currentUserId} OR g.black_player_id = ${currentUserId})
+      AND g.status != 'underway'
+      AND (black_player.name ILIKE ${`%${query}%`} OR white_player.name ILIKE ${`%${query}%`} OR CAST(g.created_at AS TEXT) ILIKE ${`%${query}%`})
+    `;
+
+    return games.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch games.');
+  }
+}
+
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
@@ -153,47 +257,47 @@ export async function fetchInvoicesPages(query: string) {
 }
 
 
-// export async function fetchGamesPages(query: string) {
-//   try {
-//     noStore();
-//     const count = await sql`
-//       SELECT
-//         g.id,
-//         g.created_at,
-//         CASE
-//           WHEN g.status = 'white-win' AND g.white_player_id = ${currentUserId} THEN 'win'
-//           WHEN g.status = 'black-win' AND g.black_player_id = ${currentUserId} THEN 'win'
-//           WHEN g.status = 'white-win' AND g.black_player_id = ${currentUserId} THEN 'loss'
-//           WHEN g.status = 'black-win' AND g.white_player_id = ${currentUserId} THEN 'loss'
-//           WHEN g.status = 'draw' THEN 'draw'
-//         END AS result,
-//         g.fen,
-//         CASE
-//           WHEN g.white_player_id = ${currentUserId} THEN black_player.name
-//           ELSE white_player.name
-//         END AS opponent_name,
-//         CASE
-//           WHEN g.white_player_id = ${currentUserId} THEN black_player.id
-//           ELSE white_player.id
-//         END AS opponent_id,
-//         EXTRACT(EPOCH FROM (g.updated_at - g.created_at)) / 60 AS duration
-//       FROM
-//         games g
-//         JOIN users AS white_player ON g.white_player_id = white_player.id
-//         JOIN users AS black_player ON g.black_player_id = black_player.id
-//       WHERE
-//         (g.white_player_id = ${currentUserId} OR g.black_player_id = ${currentUserId})
-//         AND g.status != 'underway'
-//         AND (black_player.name ILIKE ${`%${query}%`} OR white_player.name ILIKE ${`%${query}%`} OR CAST(g.created_at AS TEXT) ILIKE ${`%${query}%`})
-//   `;
+export async function fetchGamesPages(query: string) {
+  try {
+    noStore();
+    const count = await sql`
+      SELECT
+        g.id,
+        g.created_at,
+        CASE
+          WHEN g.status = 'white-win' AND g.white_player_id = ${currentUserId} THEN 'win'
+          WHEN g.status = 'black-win' AND g.black_player_id = ${currentUserId} THEN 'win'
+          WHEN g.status = 'white-win' AND g.black_player_id = ${currentUserId} THEN 'loss'
+          WHEN g.status = 'black-win' AND g.white_player_id = ${currentUserId} THEN 'loss'
+          WHEN g.status = 'draw' THEN 'draw'
+        END AS result,
+        g.fen,
+        CASE
+          WHEN g.white_player_id = ${currentUserId} THEN black_player.name
+          ELSE white_player.name
+        END AS opponent_name,
+        CASE
+          WHEN g.white_player_id = ${currentUserId} THEN black_player.id
+          ELSE white_player.id
+        END AS opponent_id,
+        EXTRACT(EPOCH FROM (g.updated_at - g.created_at)) / 60 AS duration
+      FROM
+        games g
+        JOIN users AS white_player ON g.white_player_id = white_player.id
+        JOIN users AS black_player ON g.black_player_id = black_player.id
+      WHERE
+        (g.white_player_id = ${currentUserId} OR g.black_player_id = ${currentUserId})
+        AND g.status != 'underway'
+        AND (black_player.name ILIKE ${`%${query}%`} OR white_player.name ILIKE ${`%${query}%`} OR CAST(g.created_at AS TEXT) ILIKE ${`%${query}%`})
+  `;
 
-//     const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
-//     return totalPages;
-//   } catch (error) {
-//     console.error('Database Error:', error);
-//     throw new Error('Failed to fetch total number of invoices.');
-//   }
-// }
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of invoices.');
+  }
+}
 
 export async function fetchInvoiceById(id: string) {
   noStore();
