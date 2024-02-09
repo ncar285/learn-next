@@ -12,7 +12,7 @@ import {
 } from './definitions';
 import { formatCurrency } from './utils';
 
-import { getSession } from 'next-auth/react';
+// import { getSession } from 'next-auth/react';
 
 export async function fetchRevenue() {
   // Add noStore() here to prevent the response from being cached.
@@ -101,55 +101,55 @@ const ITEMS_PER_PAGE = 6;
 const currentUserId =  '410544b2-4001-4271-9855-fec4b6a6442a';
 
 
-export async function fetchAllGames(
-  userId: string,
-){
+// export async function fetchAllGames(
+//   userId: string,
+// ){
 
-  noStore();
+//   noStore();
 
-  try {
-    const games = await sql<InvoicesTable>`
-    SELECT 
-      g.id,
+//   try {
+//     const games = await sql<InvoicesTable>`
+//     SELECT 
+//       g.id,
 
-      g.created_at,
+//       g.created_at,
 
-      g.updated_at AS finished_at,
+//       g.updated_at AS finished_at,
 
-      CASE
-      WHEN g.status = 'white-win' AND g.white_player_id = ${userId} THEN 'win'
-      WHEN g.status = 'black-win' AND g.black_player_id = ${userId} THEN 'win'
-      WHEN g.status = 'white-win' AND g.black_player_id = ${userId} THEN 'loss'
-      WHEN g.status = 'black-win' AND g.white_player_id = ${userId} THEN 'loss'
-      WHEN g.status = 'draw' THEN 'draw'
-      END AS result,
+//       CASE
+//       WHEN g.status = 'white-win' AND g.white_player_id = ${userId} THEN 'win'
+//       WHEN g.status = 'black-win' AND g.black_player_id = ${userId} THEN 'win'
+//       WHEN g.status = 'white-win' AND g.black_player_id = ${userId} THEN 'loss'
+//       WHEN g.status = 'black-win' AND g.white_player_id = ${userId} THEN 'loss'
+//       WHEN g.status = 'draw' THEN 'draw'
+//       END AS result,
 
-      g.fen,
+//       g.fen,
 
-      CASE
-      WHEN g.white_player_id = ${userId} THEN black_player.name
-      WHEN g.black_player_id = ${userId} THEN white_player.name
-      END AS opponent_name,
+//       CASE
+//       WHEN g.white_player_id = ${userId} THEN black_player.name
+//       WHEN g.black_player_id = ${userId} THEN white_player.name
+//       END AS opponent_name,
 
-      CASE
-      WHEN g.white_player_id = ${userId} THEN black_player.id
-      WHEN g.black_player_id = ${userId} THEN white_player.id
-      END AS opponent_id,
+//       CASE
+//       WHEN g.white_player_id = ${userId} THEN black_player.id
+//       WHEN g.black_player_id = ${userId} THEN white_player.id
+//       END AS opponent_id,
 
-      EXTRACT(EPOCH FROM (g.updated_at - g.created_at)) / 60 AS duration
-    FROM
-      games g
-      JOIN users AS white_player ON g.white_player_id = white_player.id
-      JOIN users AS black_player ON g.black_player_id = black_player.id
-    `;
+//       EXTRACT(EPOCH FROM (g.updated_at - g.created_at)) / 60 AS duration
+//     FROM
+//       games g
+//       JOIN users AS white_player ON g.white_player_id = white_player.id
+//       JOIN users AS black_player ON g.black_player_id = black_player.id
+//     `;
 
-    return games.rows;
-  } catch (error) {
-    console.error('Database Error:', error);
-    throw new Error('Failed to fetch all games.');
-  }
+//     return games.rows;
+//   } catch (error) {
+//     console.error('Database Error:', error);
+//     throw new Error('Failed to fetch all games.');
+//   }
   
-}
+// }
 
 
 export async function fetchFilteredGames(

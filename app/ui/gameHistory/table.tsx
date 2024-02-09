@@ -1,12 +1,11 @@
-'use client'
-
 import Image from 'next/image';
 import { UpdateInvoice, DeleteInvoice } from '@/app/ui/invoices/buttons';
 import InvoiceStatus from '@/app/ui/invoices/status';
 import { formatDateToLocal, formatCurrency } from '@/app/lib/utils';
 import { fetchFilteredInvoices } from '@/app/lib/data';
 import { useSession } from 'next-auth/react';
-import NextAuth from 'next-auth';
+// import NextAuth from 'next-auth';
+import { fetchAllGames } from '@/app/lib/actions';
 
 
 
@@ -19,17 +18,8 @@ export default function GamesTable({
 }) {
   // const invoices = await fetchFilteredInvoices(query, currentPage);
 
-  const { data: session, status } = useSession()
+  // const games = fetchAllGames();
 
-  // const res = auth(ctx)
-
-  if (status === "authenticated") {
-    console.log("1111")
-  }  else {
-    console.log("2222")
-    console.log("session", session)
-    console.log("status", status)
-  }
 
   return (
     <div className="mt-6 flow-root">

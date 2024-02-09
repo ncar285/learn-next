@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { CardSkeleton, LatestInvoicesSkeleton, RevenueChartSkeleton } from '@/app/ui/skeletons';
 import CardWrapper from '@/app/ui/dashboard/cards';
 import CreateGame from '@/app/ui/dashboard/create-game';
-import { useSession } from "next-auth/react"
+// import { useSession } from "next-auth/react"
  
 export default async function Page() {
 
